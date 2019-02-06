@@ -29,12 +29,12 @@ namespace AlternateIcon.Droid
                 var splashActivity = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivity");
                 var splashActivityAlias = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivityAlias");
 
-                // ComponentEnableOption.DontKillApp
-                // (i.e. don't kill app immediately, just wait a seconds)
+                // ComponentEnableOption.DontKillApp (i.e. kill app in five seconds)
 
                 switch (icon)
                 {
                     case AppIcon.Chicken:
+                        // Disable the launcher activity and enable it's alias
                         PackageManager.SetComponentEnabledSetting(
                             splashActivity,
                             ComponentEnabledState.Enabled,

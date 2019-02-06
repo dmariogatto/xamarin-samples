@@ -28,10 +28,13 @@ namespace AlternateIcon.iOS
 
             altIconApp.AppIconChanged += (sender, appIcon) =>
             {
+                // Null represents the default app icon
+                // otherwise, it's the name defined in the info.plist
                 var iconName = appIcon == AppIcon.Chicken
                                ? null
                                : appIcon.ToString().ToLower();
                 UIApplication.SharedApplication.SetAlternateIconName(iconName, (err) => {
+                    // Write any errors to the console
                     Console.WriteLine("Set Alternate Icon: {0}", err);
                 });
             };
