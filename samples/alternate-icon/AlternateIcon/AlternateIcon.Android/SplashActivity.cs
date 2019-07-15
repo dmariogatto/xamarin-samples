@@ -6,11 +6,13 @@ using Android.Support.V7.App;
 
 namespace AlternateIcon.Droid
 {
-    [Activity(Name = "com.dgatto.alternateicon.SplashActivity",
-              Label = "Alternate Icon",
-              Icon = "@drawable/icon",
-              Theme = "@style/SplashTheme",
-              MainLauncher = true)]
+    [Activity(
+#if DEBUG
+        MainLauncher = true,
+#endif
+        Name = "com.dgatto.alternateicon.SplashActivity",
+        Label = "Alternate Icon",
+        Theme = "@style/SplashTheme")]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

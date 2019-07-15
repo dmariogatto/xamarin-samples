@@ -9,8 +9,7 @@ using Android.OS;
 
 namespace AlternateIcon.Droid
 {
-    [Activity(Label = "Alternate Icon",
-              Icon = "@drawable/icon",
+    [Activity(Label = "Alternate Icon",              
               Theme = "@style/MainTheme", 
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -24,10 +23,11 @@ namespace AlternateIcon.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             var altIconApp = new AlternateIcon.App();
+
             altIconApp.AppIconChanged += (sender, icon) =>
             {
-                var splashActivity = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivity");
-                var splashActivityAlias = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivityAlias");
+                var chickenActivityAlias = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivity.Chicken");
+                var cactusActivityAlias = new Android.Content.ComponentName(this, "com.dgatto.alternateicon.SplashActivity.Cactus");
 
                 // ComponentEnableOption.DontKillApp (i.e. kill app in five seconds)
 
@@ -36,34 +36,27 @@ namespace AlternateIcon.Droid
                     case AppIcon.Chicken:
                         // Disable the launcher activity and enable it's alias
                         PackageManager.SetComponentEnabledSetting(
-                            splashActivity,
+                            chickenActivityAlias,
                             ComponentEnabledState.Enabled,
                             ComponentEnableOption.DontKillApp);
                         PackageManager.SetComponentEnabledSetting(
-                            splashActivityAlias,
+                            cactusActivityAlias,
                             ComponentEnabledState.Disabled,
                             ComponentEnableOption.DontKillApp);
                         break;
                     case AppIcon.Cactus:
                         PackageManager.SetComponentEnabledSetting(
-                            splashActivityAlias,
+                            cactusActivityAlias,
                             ComponentEnabledState.Enabled,
                             ComponentEnableOption.DontKillApp);
                         PackageManager.SetComponentEnabledSetting(
-                            splashActivity,
+                            chickenActivityAlias,
                             ComponentEnabledState.Disabled,
                             ComponentEnableOption.DontKillApp);
                         break;
                     default:                        
                         break;
                 }
-
-                // Only way to stop app getting killed is to launch a new Activity
-                var intent = new Android.Content.Intent(this, typeof(MainActivity));
-                intent.AddFlags(Android.Content.ActivityFlags.ClearTop);
-                intent.SetFlags(Android.Content.ActivityFlags.NewTask | Android.Content.ActivityFlags.ClearTask);
-                Finish();
-                StartActivity(intent);
             };
 
             LoadApplication(altIconApp);

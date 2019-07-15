@@ -4,14 +4,26 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<application android:label="Alternate Icon">
     <activity-alias android:label="Alternate Icon"
-                    android:icon="@drawable/icon_alt"
-                    android:name="com.dgatto.alternateicon.SplashActivityAlias"
+                    android:icon="@mipmap/chicken"
+                    android:roundIcon="@mipmap/chicken_round"
+                    android:name="com.dgatto.alternateicon.SplashActivity.Chicken"
                     android:targetActivity="com.dgatto.alternateicon.SplashActivity"
-                    android:enabled="false">
+                    android:enabled="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity-alias>
+    <activity-alias android:label="Alternate Icon"
+                    android:icon="@mipmap/cactus"
+                    android:roundIcon="@mipmap/cactus_round"
+                    android:name="com.dgatto.alternateicon.SplashActivity.Cactus"
+                    android:targetActivity="com.dgatto.alternateicon.SplashActivity"
+                    android:enabled="false">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity-alias>
   </application>
 </manifest>
