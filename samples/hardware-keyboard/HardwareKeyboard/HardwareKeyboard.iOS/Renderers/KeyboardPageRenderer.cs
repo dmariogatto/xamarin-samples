@@ -14,7 +14,7 @@ namespace HardwareKeyboard.iOS.Renderers
         private const string KeySelector = "KeyCommand:";
 
         private KeyboardPage _page => Element as KeyboardPage;
-        private readonly List<UIKeyCommand> _keyCommands = new List<UIKeyCommand>();
+        private readonly IList<UIKeyCommand> _keyCommands = new List<UIKeyCommand>();
 
         public override bool CanBecomeFirstResponder
         {
@@ -41,6 +41,11 @@ namespace HardwareKeyboard.iOS.Renderers
                     _keyCommands.Add(UIKeyCommand.Create((NSString)key.ToString(), 0, selector));
                 }
 
+                // Viewable on iPad (>= iOS 9) when holding down ⌘
+                _keyCommands.Add(UIKeyCommand.Create(new NSString("x"), UIKeyModifierFlags.Command, selector, new NSString("Cut")));
+                _keyCommands.Add(UIKeyCommand.Create(new NSString("c"), UIKeyModifierFlags.Command, selector, new NSString("Copy")));
+                _keyCommands.Add(UIKeyCommand.Create(new NSString("v"), UIKeyModifierFlags.Command, selector, new NSString("Paste")));
+
                 foreach (var kc in _keyCommands)
                 {
                     AddKeyCommand(kc);
@@ -56,8 +61,29 @@ namespace HardwareKeyboard.iOS.Renderers
 
             if (_keyCommands.Contains(keyCmd))
             {
-                System.Diagnostics.Debug.WriteLine($"{_page?.Name ?? string.Empty}:{nameof(KeyCommand)}:{keyCmd.Input}");
-                _page?.OnKeyUp(keyCmd.Input, $"{_page?.Name ?? string.Empty}:{nameof(KeyCommand)}:{keyCmd.Input}");
+                if (keyCmd.ModifierFlags == UIKeyModifierFlags.Command)
+                {
+                    switch (keyCmd.Input.ToString())
+                    {
+                        case "x":
+                            // CUT
+                            break;
+                        case "c":
+                            // COPY
+                            break;
+                        case "v":
+                            // PASTE
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    var desc = $"{_page?.Name ?? string.Empty}:{nameof(KeyCommand)}:{keyCmd.Input}";
+                    System.Diagnostics.Debug.WriteLine(desc);
+                    _page?.OnKeyUp(keyCmd.Input, desc);
+                }               
             }            
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using HardwareKeyboard.Services;
 using HardwareKeyboard.Views;
 
@@ -8,7 +7,6 @@ namespace HardwareKeyboard
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();

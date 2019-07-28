@@ -19,20 +19,20 @@ namespace HardwareKeyboard.ViewModels
         private bool _isEmpty = false;
         public bool IsEmpty
         {
-            get { return _isEmpty; }
-            set { SetProperty(ref _isEmpty, value); }
+            get => _isEmpty;
+            set => SetProperty(ref _isEmpty, value);
         }
 
         public ItemsViewModel()
         {
             Title = "Key Commands";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            AddItemCommand = new Command<Item>(async (i) => await ExecuteAddItemCommand(i));
-            ClearItemsCommand = new Command(async () => await ExecuteClearItemsCommand());
+            LoadItemsCommand = new Command(async () => await LoadItems());
+            AddItemCommand = new Command<Item>(async (i) => await AddItem(i));
+            ClearItemsCommand = new Command(async () => await ClearItems());
         }
 
-        private async Task ExecuteLoadItemsCommand()
+        private async Task LoadItems()
         {
             if (IsBusy)
                 return;
@@ -60,7 +60,7 @@ namespace HardwareKeyboard.ViewModels
             }
         }
 
-        private async Task ExecuteAddItemCommand(Item item)
+        private async Task AddItem(Item item)
         {
             Items.Insert(0, item);
             await DataStore.AddItemAsync(item);
@@ -68,7 +68,7 @@ namespace HardwareKeyboard.ViewModels
             IsEmpty = false;
         }
 
-        private async Task ExecuteClearItemsCommand()
+        private async Task ClearItems()
         {
             Items.Clear();
             await DataStore.ClearItemsAsync();

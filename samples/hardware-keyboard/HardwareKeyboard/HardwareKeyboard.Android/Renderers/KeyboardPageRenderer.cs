@@ -36,12 +36,52 @@ namespace HardwareKeyboard.Droid.Renderers
 
         public override bool OnKeyUp([GeneratedEnum] Keycode keyCode, KeyEvent e)
         {
-            System.Diagnostics.Debug.WriteLine($"{_page?.Name ?? string.Empty}:{nameof(OnKeyUp)}:{keyCode}");
-            _page?.OnKeyUp(keyCode.ToString(), $"{_page?.Name ?? string.Empty}:{nameof(OnKeyUp)}:{keyCode}");
+            var handled = false;
 
-            return true;
-            
-            return base.OnKeyUp(keyCode, e);
+            if ((e.Modifiers & MetaKeyStates.CtrlMask) != 0)
+            {
+                switch (keyCode)
+                {
+                    case Keycode.X:
+                        // CUT
+                        handled = true;
+                        break;
+                    case Keycode.C:
+                        // COPY
+                        handled = true;
+                        break;
+                    case Keycode.V:
+                        // PASTE
+                        handled = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                if (keyCode >= Keycode.A && keyCode <= Keycode.Z)
+                {
+                    // Letter
+                    handled = true;
+                }
+                else if ((keyCode >= Keycode.Num0 && keyCode <= Keycode.Num9) ||
+                         (keyCode >= Keycode.Numpad0 && keyCode <= Keycode.Num9))
+                {
+                    // Number
+                    handled = true;
+                }
+
+                var desc = $"{_page?.Name ?? string.Empty}:{nameof(OnKeyUp)}:{keyCode}";
+                System.Diagnostics.Debug.WriteLine(desc);
+
+                if (handled)
+                {
+                    _page?.OnKeyUp(keyCode.ToString(), desc);                    
+                }
+            }
+
+            return handled || base.OnKeyUp(keyCode, e);
         }
     }
 }
