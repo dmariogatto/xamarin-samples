@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.Accounts;
 using Android.App;
 using Android.Content;
@@ -17,9 +18,17 @@ namespace AccountConsumer
     public class MainActivity : AppCompatActivity
     {
         private const int AccountRequestCode = 1234;
+        private const string AccountType = "com.dgatto.accountauthenticator";
         private const string AuthTokenType = "dgatto.authtype";
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        private GridLayout _gridLayout;
+        private TextView _username;
+        private TextView _token;
+        private Button _getNewAuthTok;
+
+        private string _accountName;
+
+        protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -33,25 +42,55 @@ namespace AccountConsumer
 
             var authButton = FindViewById<Button>(Resource.Id.auth_button);
             authButton.Click += AuthButtonOnClick;
+
+            _gridLayout = FindViewById<GridLayout>(Resource.Id.grid_layout);
+            _username = FindViewById<TextView>(Resource.Id.username);
+            _token = FindViewById<TextView>(Resource.Id.token);
+            _getNewAuthTok = FindViewById<Button>(Resource.Id.new_auth_tok_button);
+            _getNewAuthTok.Click += GetNewAuthTokOnClick;
+
+            await RefreshAccountDetails();
+        }
+
+        private async Task RefreshAccountDetails()
+        {
+            var account = GetAccount();
+            if (account != null)
+            {
+                var am = AccountManager.Get(this);
+                _username.Text = account.Name;
+                var result = await am.GetAuthToken(account, AuthTokenType, null, false, null, null).GetResultAsync(5000, TimeUnit.Milliseconds);
+                if (result is Bundle bundle)
+                {
+                    _token.Text = bundle.GetString(AccountManager.KeyAuthtoken);
+                }
+
+                _gridLayout.Visibility = ViewStates.Visible;
+                _getNewAuthTok.Visibility = ViewStates.Visible;
+            }
+        }
+
+        private async void GetNewAuthTokOnClick(object sender, EventArgs e)
+        {
+            var account = GetAccount();
+            if (account != null)
+            {
+                var am = AccountManager.Get(this);
+                var tok = am.PeekAuthToken(account, AuthTokenType);
+                am.InvalidateAuthToken(AccountType, tok);
+                await RefreshAccountDetails();
+            }
         }
 
         protected override async void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == AccountRequestCode)
+            if (requestCode == AccountRequestCode &&
+                resultCode == Result.Ok)
             {
-                if (resultCode == Result.Ok)
-                {
-                    var am = AccountManager.Get(this);
-                    var accountName = data.GetStringExtra(AccountManager.KeyAccountName);
-                    var accountType = data.GetStringExtra(AccountManager.KeyAccountType);
-                    var accounts = am.GetAccountsByType(accountType);
-                    var acct = accounts.FirstOrDefault(a => a.Name == accountName);
-                    var tok = am.PeekAuthToken(acct, AuthTokenType);
-                    am.InvalidateAuthToken(accountType, tok);
-                    var getNew = await am.GetAuthToken(acct, AuthTokenType, null, false, null, null).GetResultAsync(5000, TimeUnit.Milliseconds);
-                }            
+                _accountName = data.GetStringExtra(AccountManager.KeyAccountName);
+                await RefreshAccountDetails();
             }
         }
 
@@ -59,6 +98,51 @@ namespace AccountConsumer
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return true;
+        }
+        
+        private void AuthButtonOnClick(object sender, EventArgs e)
+        {
+            var isAuthAppInstalled = IsAccountAuthenticatorAppInstalled();
+
+            if (isAuthAppInstalled)
+            {
+                var accountPickerIntent = default(Intent);
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+                {
+                    accountPickerIntent =
+                        AccountManager.NewChooseAccountIntent(null, null, new[] { AccountType }, null, null, null, null);
+                }
+                else
+                {
+                    var accounts = AccountManager.Get(this).GetAccounts();
+                    accountPickerIntent =
+                        AccountManager.NewChooseAccountIntent(null, accounts, new[] { AccountType }, false, null, null, null, null);
+                }
+
+                StartActivityForResult(accountPickerIntent, AccountRequestCode);
+            }
+            else
+            {
+                var adb = new Android.Support.V7.App.AlertDialog.Builder(this);
+                adb.SetTitle("Attention!");
+                adb.SetMessage("This app requires the Account Authenticator! Please install it before continuing...");
+                adb.SetPositiveButton("OK", (s, a) => { });
+                var dialog = adb.Create();
+                dialog.Show();
+            }
+        }
+
+        private Account GetAccount()
+        {
+            var am = AccountManager.Get(this);
+            var accounts = am.GetAccountsByType(AccountType);
+            return accounts.FirstOrDefault(a => string.IsNullOrEmpty(_accountName) || a.Name == _accountName);
+        }
+
+        private bool IsAccountAuthenticatorAppInstalled()
+        {
+            var launchIntent = PackageManager.GetLaunchIntentForPackage("com.dgatto.accountauthenticator");
+            return launchIntent != null;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -80,44 +164,6 @@ namespace AccountConsumer
             View view = (View)sender;
             Snackbar.Make(view, "Fabulicious 👋", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-        }
-
-        private void AuthButtonOnClick(object sender, EventArgs e)
-        {
-            var isAuthAppInstalled = IsAccountAuthenticatorAppInstalled();
-
-            if (isAuthAppInstalled)
-            {
-                var accountPickerIntent = default(Intent);
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-                {
-                    accountPickerIntent =
-                        AccountManager.NewChooseAccountIntent(null, null, new[] { "com.dgatto.accountauthenticator" }, null, null, null, null);
-                }
-                else
-                {
-                    var accounts = AccountManager.Get(this).GetAccounts();
-                    accountPickerIntent =
-                        AccountManager.NewChooseAccountIntent(null, accounts, null, false, null, null, null, null);
-                }
-
-                StartActivityForResult(accountPickerIntent, AccountRequestCode);
-            }
-            else
-            {
-                var adb = new Android.Support.V7.App.AlertDialog.Builder(this);
-                adb.SetTitle("Attention!");
-                adb.SetMessage("This app requires the Account Authenticator! Please install it before continuing...");
-                adb.SetPositiveButton("OK", (s, a) => { });
-                var dialog = adb.Create();
-                dialog.Show();
-            }
-        }
-
-        private bool IsAccountAuthenticatorAppInstalled()
-        {
-            var launchIntent = PackageManager.GetLaunchIntentForPackage("com.dgatto.accountauthenticator");
-            return launchIntent != null;
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

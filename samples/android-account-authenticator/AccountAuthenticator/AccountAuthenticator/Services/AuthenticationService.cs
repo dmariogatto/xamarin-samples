@@ -13,7 +13,7 @@ namespace AccountAuthenticator.Services
                 throw new ArgumentException(nameof(password));
 
             // Your amazing account logic
-            await Task.Delay(1500);
+            await Task.Delay(1000);
 
             return Guid.NewGuid().ToString();
         }
