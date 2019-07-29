@@ -4,4 +4,9 @@ A collection of sample Xamarin apps demonstrating small bits and pieces.
 
 Current samples include:
 
-- alternate app icons
+- Alternate App Icons
+  - Shows how to set alternate app icons in both Android and iOS
+- Hardware Keyboard
+  - Utilising a custom renderer in Xamarin Forms support hardware keyboard input
+- Account Authenticator
+  - Implementation of a [custom account](https://developer.android.com/training/id-auth/custom_auth) in Xamarin Android
