@@ -71,7 +71,7 @@ namespace HardwareKeyboard.Droid.Renderers
                     handled = true;
                 }
 
-                var desc = $"{_page?.Name ?? string.Empty}:{nameof(OnKeyUp)}:{keyCode}";
+                var desc = $"{_page?.Name ?? string.Empty} : {nameof(OnKeyUp)} : {keyCode}";
                 System.Diagnostics.Debug.WriteLine(desc);
 
                 if (handled)

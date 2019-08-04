@@ -13,8 +13,8 @@ namespace HardwareKeyboard.Views
         {
             InitializeComponent();
 
-            Children.Add(new NavigationPage(new ItemsPage() { Name = "Page1" }) { Title = "1️⃣" });
-            Children.Add(new NavigationPage(new ItemsPage() { Name = "Page2" }) { Title = "2️⃣" });
+            Children.Add(new NavigationPage(new ItemsPage() { Name = "Page 1" }) { Title = "Page 1" });
+            Children.Add(new NavigationPage(new ItemsPage() { Name = "Page 2" }) { Title = "Page 2" });
         }
     }
 }

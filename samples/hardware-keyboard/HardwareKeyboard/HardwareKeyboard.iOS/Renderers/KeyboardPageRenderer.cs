@@ -80,7 +80,7 @@ namespace HardwareKeyboard.iOS.Renderers
                 }
                 else
                 {
-                    var desc = $"{_page?.Name ?? string.Empty}:{nameof(KeyCommand)}:{keyCmd.Input}";
+                    var desc = $"{_page?.Name ?? string.Empty} : {nameof(KeyCommand)} : {keyCmd.Input}";
                     System.Diagnostics.Debug.WriteLine(desc);
                     _page?.OnKeyUp(keyCmd.Input, desc);
                 }               

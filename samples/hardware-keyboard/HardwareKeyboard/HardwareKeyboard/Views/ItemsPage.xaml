@@ -32,13 +32,12 @@
                             <Label Text="{Binding Text}" 
                                 d:Text="{Binding .}"
                                 LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="22" />
                             <Label Text="{Binding Description}" 
                                 d:Text="Item description"
                                 LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
+                                FontAttributes="Bold"
+                                FontSize="18" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
