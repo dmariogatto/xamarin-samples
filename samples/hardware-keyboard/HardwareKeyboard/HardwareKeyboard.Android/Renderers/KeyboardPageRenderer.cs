@@ -38,20 +38,19 @@ namespace HardwareKeyboard.Droid.Renderers
         {
             var handled = false;
 
-            if ((e.Modifiers & MetaKeyStates.CtrlMask) != 0)
+            if (e.IsCtrlPressed)
             {
                 switch (keyCode)
                 {
                     case Keycode.X:
-                        // CUT
-                        handled = true;
+                        _page?.OnKeyCommand(KeyCommand.Cut);
                         break;
                     case Keycode.C:
-                        // COPY
+                        _page?.OnKeyCommand(KeyCommand.Copy);
                         handled = true;
                         break;
                     case Keycode.V:
-                        // PASTE
+                        _page?.OnKeyCommand(KeyCommand.Paste);
                         handled = true;
                         break;
                     default:

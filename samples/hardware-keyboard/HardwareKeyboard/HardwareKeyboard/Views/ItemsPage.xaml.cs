@@ -28,6 +28,12 @@ namespace HardwareKeyboard.Views
             _viewModel.AddItemCommand.Execute(newItem);
         }
 
+        public override void OnKeyCommand(KeyCommand command)
+        {
+            var newItem = new Item() { Text = command.ToString(), Description = string.Empty };
+            _viewModel.AddItemCommand.Execute(newItem);
+        }
+
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var item = args.SelectedItem as Item;

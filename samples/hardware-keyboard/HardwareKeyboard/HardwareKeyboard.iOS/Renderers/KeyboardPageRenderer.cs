@@ -66,13 +66,13 @@ namespace HardwareKeyboard.iOS.Renderers
                     switch (keyCmd.Input.ToString())
                     {
                         case "x":
-                            // CUT
+                            _page?.OnKeyCommand(Controls.KeyCommand.Cut);
                             break;
                         case "c":
-                            // COPY
+                            _page?.OnKeyCommand(Controls.KeyCommand.Copy);
                             break;
                         case "v":
-                            // PASTE
+                            _page?.OnKeyCommand(Controls.KeyCommand.Paste);
                             break;
                         default:
                             break;
