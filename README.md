@@ -10,3 +10,6 @@ Current samples include:
   - Utilising a custom renderer in Xamarin Forms support hardware keyboard input
 - Account Authenticator
   - Implementation of a [custom account](https://developer.android.com/training/id-auth/custom_auth) in Xamarin Android
+
+- Control Samples
+  - Not much yet, but a host Xamarin Forms application to demo effects and custom controls/renderers

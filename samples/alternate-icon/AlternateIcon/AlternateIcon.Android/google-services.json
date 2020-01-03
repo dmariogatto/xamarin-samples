@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "458984895303",
+    "firebase_url": "https://xam-alt-icons.firebaseio.com",
+    "project_id": "xam-alt-icons",
+    "storage_bucket": "xam-alt-icons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458984895303:android:6ede08d46b5f7fe4a89262",
+        "android_client_info": {
+          "package_name": "com.dgatto.alternateicon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458984895303-6gua0h3r6igfhnmunk2po8a13bh2d45q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7xbObnrxSOSvC2g65AnNpNLPwv6pAsaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458984895303-6gua0h3r6igfhnmunk2po8a13bh2d45q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
