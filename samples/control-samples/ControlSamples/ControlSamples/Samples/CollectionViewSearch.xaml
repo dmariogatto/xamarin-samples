@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ControlSamples.Samples.CollectionViewSearch"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <CollectionView
+                x:Name="SearchCollectionView"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                Scrolled="PackagesScrolled">
+                <CollectionView.Header>
+                    <ContentView>
+                        <StackLayout x:Name="SearchCollectionHeaderView" />
+                    </ContentView>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame
+                                x:Name="SearchBarView"
+                                Margin="8,4,8,4"
+                                Padding="3"
+                                BackgroundColor="LightGray"
+                                CornerRadius="3"
+                                HasShadow="True"
+                                HeightRequest="128">
+                                <Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding}"
+                                    VerticalOptions="Center" />
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Frame
+                x:Name="SearchBarView"
+                Margin="16,8,16,8"
+                Padding="3"
+                AbsoluteLayout.LayoutBounds="0.5, 0, AutoSize, AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                CornerRadius="6"
+                HasShadow="True">
+                <SearchBar HorizontalOptions="FillAndExpand" />
+            </Frame>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

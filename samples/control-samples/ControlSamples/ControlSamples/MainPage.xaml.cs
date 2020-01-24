@@ -14,14 +14,27 @@ namespace ControlSamples
     {
         public MainPage()
         {
+            BindingContext = this;
+
             InitializeComponent();
 
             Title = "Samples";
         }
 
-        private void SampleButtonClicked(object sender, EventArgs e)
+        private Command _sampleClickedCommand;
+        public Command SampleClickedCommand => _sampleClickedCommand ??= new Command<SamplePage>(async (page) => await SampleClicked(page));
+
+        private async Task SampleClicked(SamplePage page)
         {
-            Navigation.PushAsync(new NoKeyboardSample());
+            switch (page)
+            {
+                case SamplePage.NoKeyboardEntry:
+                    await Navigation.PushAsync(new NoKeyboardEntry());
+                    break;
+                case SamplePage.CollectionViewSearch:
+                    await Navigation.PushAsync(new CollectionViewSearch());
+                    break;
+            }
         }
     }
 }
