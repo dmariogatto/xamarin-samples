@@ -4,6 +4,9 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
+
+[assembly: ResolutionGroupName("ControlSamples.Effects")]
 
 namespace ControlSamples.iOS
 {

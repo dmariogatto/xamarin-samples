@@ -5,7 +5,6 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ResolutionGroupName("ControlSamples.Effects")]
 [assembly: ExportEffect(typeof(NoKeyboardEffect_Droid), nameof(NoKeyboardEffect))]
 namespace ControlSamples.Droid.Effects
 {

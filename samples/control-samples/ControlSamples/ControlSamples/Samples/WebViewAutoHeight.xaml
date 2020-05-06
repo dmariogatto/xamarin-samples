@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ControlSamples.Samples.WebViewAutoHeight"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ControlSamples.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:effects="clr-namespace:ControlSamples.Effects"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    BackgroundColor="{DynamicResource PageBackgroundColor}"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:HtmlStringToDocumentConverter x:Key="htmlStringToDocumentConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <WebView effects:WebViewEffect.AutoHeight="True" effects:WebViewEffect.IsJavaScriptEnabled="False">
+                <WebView.Effects>
+                    <effects:WebViewEffect />
+                </WebView.Effects>
+                <WebView.Source>
+                    <HtmlWebViewSource Html="{Binding HtmlFormattedContent, Converter={StaticResource htmlStringToDocumentConverter}}" />
+                </WebView.Source>
+            </WebView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

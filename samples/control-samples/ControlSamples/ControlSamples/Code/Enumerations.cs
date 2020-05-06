@@ -7,6 +7,7 @@ namespace ControlSamples
     public enum SamplePage
     {
         NoKeyboardEntry,
-        CollectionViewSearch
+        CollectionViewSearch,
+        WebViewAutoHeight,
     }
 }

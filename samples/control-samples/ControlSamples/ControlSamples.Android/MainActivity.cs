@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
+
+[assembly: ResolutionGroupName("ControlSamples.Effects")]
 
 namespace ControlSamples.Droid
 {

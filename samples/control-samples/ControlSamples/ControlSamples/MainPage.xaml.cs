@@ -34,6 +34,9 @@ namespace ControlSamples
                 case SamplePage.CollectionViewSearch:
                     await Navigation.PushAsync(new CollectionViewSearch());
                     break;
+                case SamplePage.WebViewAutoHeight:
+                    await Navigation.PushAsync(new WebViewAutoHeight());
+                    break;
             }
         }
     }

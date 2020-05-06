@@ -5,7 +5,6 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ResolutionGroupName("ControlSamples.Effects")]
 [assembly: ExportEffect(typeof(NoKeyboardEffect_iOS), nameof(NoKeyboardEffect))]
 namespace ControlSamples.iOS.Effects
 {

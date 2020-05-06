@@ -17,7 +17,11 @@
         <Button
             Command="{Binding SampleClickedCommand}"
             CommandParameter="{x:Static local:SamplePage.CollectionViewSearch}"
-            Text="Search Bar - Collection View" />
+            Text="Collection View - Search Bar" />
+        <Button
+            Command="{Binding SampleClickedCommand}"
+            CommandParameter="{x:Static local:SamplePage.WebViewAutoHeight}"
+            Text="Web View - Auto Height" />
     </StackLayout>
 
 </ContentPage>
