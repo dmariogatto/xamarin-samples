@@ -22,6 +22,15 @@ namespace ControlSamples.Samples
             entry.Effects.Add(new NoKeyboardEffect());
             layout.Children.Add(entry);
 
+            layout.Children.Add(new Label()
+            {
+                Text = "On Android you may need to disable ‘Show virtual keyboard’ in the Settings, which by default shows the soft keyboard when a hardware keyboard is detected."
+            });
+
+            var btn = new Button() { Text = "Focus Entry" };
+            btn.Clicked += (sender, args) => entry.Focus();
+            layout.Children.Add(btn);
+
             Content = layout;
         }
     }

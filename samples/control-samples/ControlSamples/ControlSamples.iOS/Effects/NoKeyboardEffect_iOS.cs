@@ -27,7 +27,7 @@ namespace ControlSamples.iOS.Effects
         }
 
         protected override void OnDetached()
-        {            
+        {
         }
     }
 }
