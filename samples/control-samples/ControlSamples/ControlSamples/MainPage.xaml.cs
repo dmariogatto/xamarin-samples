@@ -37,6 +37,9 @@ namespace ControlSamples
                 case SamplePage.WebViewAutoHeight:
                     await Navigation.PushAsync(new WebViewAutoHeight());
                     break;
+                case SamplePage.FadingEdges:
+                    await Navigation.PushAsync(new FadingEdge());
+                    break;
             }
         }
     }

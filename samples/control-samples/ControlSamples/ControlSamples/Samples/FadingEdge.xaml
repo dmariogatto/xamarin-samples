@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="ControlSamples.Samples.FadingEdge"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    BackgroundColor="White"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView x:Name="StringCollection">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <yummy:PancakeView
+                                Margin="4"
+                                Padding="4"
+                                BackgroundColor="CornflowerBlue"
+                                CornerRadius="6"
+                                Elevation="4">
+                                <Label
+                                    FontSize="Large"
+                                    Text="{Binding}"
+                                    TextColor="Black" />
+                            </yummy:PancakeView>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--  Top Fading Edge  -->
+            <yummy:PancakeView
+                Margin="0"
+                BackgroundGradientEndColor="Transparent"
+                BackgroundGradientStartColor="White"
+                Elevation="0"
+                HasShadow="False"
+                HeightRequest="32"
+                HorizontalOptions="FillAndExpand"
+                InputTransparent="True"
+                VerticalOptions="Start" />
+            <!--  Bottom Fading Edge  -->
+            <yummy:PancakeView
+                Margin="0"
+                BackgroundGradientEndColor="White"
+                BackgroundGradientStartColor="Transparent"
+                Elevation="0"
+                HasShadow="False"
+                HeightRequest="32"
+                HorizontalOptions="FillAndExpand"
+                InputTransparent="True"
+                VerticalOptions="End" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

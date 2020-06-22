@@ -9,5 +9,6 @@ namespace ControlSamples
         NoKeyboardEntry,
         CollectionViewSearch,
         WebViewAutoHeight,
+        FadingEdges,
     }
 }

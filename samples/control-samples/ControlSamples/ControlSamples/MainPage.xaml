@@ -22,6 +22,10 @@
             Command="{Binding SampleClickedCommand}"
             CommandParameter="{x:Static local:SamplePage.WebViewAutoHeight}"
             Text="Web View - Auto Height" />
+        <Button
+            Command="{Binding SampleClickedCommand}"
+            CommandParameter="{x:Static local:SamplePage.FadingEdges}"
+            Text="ScrollView - Fading Edges" />
     </StackLayout>
 
 </ContentPage>
